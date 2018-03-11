@@ -7,56 +7,24 @@
       </div>
     </div>
     <div class="ui-g-12">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon">To:</span>
-        <tag-input formControlName="to" secondaryPlaceholder='' placeholder [displayBy]="'email'" [identifyBy]="'email'">
-          <tag-input-dropdown [autocompleteObservable]='matchedContacts' [matchingFn]="matchingfn"
-                              [displayBy]="'email'" [identifyBy]="'email'">
-            <ng-template let-item="item" let-index="index">
-              <strong>{{ item.name }}</strong> {{ item.email }}
-            </ng-template>
-          </tag-input-dropdown>
-        </tag-input>
-        <a class="ui-inputgroup-addon">
-          <i class="fa ui-icon-perm-identity"></i>
-        </a>
-        <a *ngIf="!displayCC" class="ui-inputgroup-addon" (click)="displayCC = true">CC</a>
-        <a *ngIf="!displayBCC" class="ui-inputgroup-addon" (click)="displayBCC = true">BCC</a>
-      </div>
+      <address-field [form]="emailForm" label="To" [formName]="'to'" (onFocus)="displayBCC && hideBcc()"></address-field>
     </div>
 
-    <div *ngIf="displayCC" class="ui-g-12">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon">Cc:</span>
-        <tag-input formControlName="cc" secondaryPlaceholder='' placeholder>
-          <tag-input-dropdown [autocompleteItems]="['iTem1', 'item2', 'item3']">
-          </tag-input-dropdown>
-        </tag-input>
-        <a class="ui-inputgroup-addon">
-          <i class="fa ui-icon-perm-identity"></i>
-        </a>
-      </div>
+    <div class="ui-g-12">
+      <address-field [form]="emailForm" [label]="displayBCC ? 'Cc': 'Cc/Bcc'" [formName]="'cc'"
+                     (onFocus)="!displayBCC && (displayBCC = true)"></address-field>
     </div>
     <div *ngIf="displayBCC" class="ui-g-12">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon">Bcc:</span>
-        <tag-input formControlName="bcc" secondaryPlaceholder='' placeholder>
-          <tag-input-dropdown [autocompleteItems]="['iTem1', 'item2', 'item3']">
-          </tag-input-dropdown>
-        </tag-input>
-        <a class="ui-inputgroup-addon">
-          <i class="fa ui-icon-perm-identity"></i>
-        </a>
-      </div>
+      <address-field [form]="emailForm" label="Bcc" [formName]="'bcc'"></address-field>
     </div>
 
     <div class="ui-g-12">
       <div class="ui-inputgroup">
-        <input type="text" pInputText placeholder="Subject" formControlName="subject">
+        <input type="text" pInputText placeholder="Subject" formControlName="subject" (focus)="displayBCC && hideBcc()">
       </div>
     </div>
     <div class="ui-g-12">
-      <textarea [rows]="10" pInputTextarea autoResize="autoResize" formControlName="text"></textarea>
+      <textarea [rows]="10" pInputTextarea autoResize="autoResize" formControlName="text" (focus)="displayBCC && hideBcc()"></textarea>
     </div>
     <button type="submit" label="Send" icon="ui-icon-send" pButton></button>
   </form>

@@ -8,6 +8,7 @@ import {StartupService} from './@core/startup/startup.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CoreModule} from './@core/core.module';
 import {ContactComponent} from './components/contact/contact.component';
+import {AddressFieldComponent} from './components/address-field/address-field.component';
 
 export function StartupServiceFactory(startupService: StartupService): Function {
   return () => startupService.getSettings();
@@ -17,6 +18,7 @@ export function StartupServiceFactory(startupService: StartupService): Function 
   declarations: [
     AppComponent,
     ComposeEmailComponent,
+    AddressFieldComponent,
     ContactComponent
   ],
   imports: [

@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SettingsService} from '../../@core/data/settings';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ContactService} from '../../@core/service/contact.service';
-import {User} from '../../@core/model';
+import {logging} from 'selenium-webdriver';
 
 @Component({
   selector: 'compose-email',
@@ -12,12 +11,10 @@ import {User} from '../../@core/model';
 
 export class ComposeEmailComponent implements OnInit {
   emailForm: FormGroup;
-  displayCC: boolean;
   displayBCC: boolean;
 
   constructor(private fb: FormBuilder,
-              private settingsService: SettingsService,
-              private contactService: ContactService) {
+              private settingsService: SettingsService) {
   }
 
   ngOnInit() {
@@ -30,15 +27,9 @@ export class ComposeEmailComponent implements OnInit {
       text: ['']
     });
   }
-
-  matchedContacts = () => {
-    return this.contactService.getContacts();
+  hideBcc() {
+    this.displayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
   }
-
-  matchingfn(value: string, target: User) {
-    return target.name.toLowerCase().includes(value.toLowerCase()) || target.email.toLowerCase().includes(value.toLowerCase());
-  }
-
   onSubmit() {
     console.log(this.emailForm.value);
   }
