@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {SettingsService} from '../../@core/data/settings';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {logging} from 'selenium-webdriver';
+import {FormBuilder, FormGroup, ValidatorFn, AbstractControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'compose-email',
-  templateUrl: 'compose-email.component.html',
-  styleUrls: ['compose-email.component.scss']
+  templateUrl: 'compose-email.component.html'
 })
 
 export class ComposeEmailComponent implements OnInit {
@@ -20,7 +18,7 @@ export class ComposeEmailComponent implements OnInit {
   ngOnInit() {
     this.emailForm = this.fb.group({
       from: this.fb.group(this.settingsService.user),
-      to: [[]],
+      to: [[], Validators.required],
       cc: [[]],
       bcc: [[]],
       subject: [''],
@@ -31,6 +29,6 @@ export class ComposeEmailComponent implements OnInit {
     this.displayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
   }
   onSubmit() {
-    console.log(this.emailForm.value);
+    console.log(this.emailForm);
   }
 }

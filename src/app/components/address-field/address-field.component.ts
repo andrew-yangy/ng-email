@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../../@core/model';
 import {ContactService} from '../../@core/service/contact.service';
-import {FormGroup} from '@angular/forms';
+import {FormGroup, FormControl} from '@angular/forms';
+import { map, filter, tap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'address-field',
@@ -10,8 +12,10 @@ import {FormGroup} from '@angular/forms';
       <span class="ui-inputgroup-addon">{{label}}:</span>
       <tag-input [formControlName]="formName"
                  secondaryPlaceholder='' placeholder
-                 (onFocus)="onFocus.emit(formName)"
-                 (onBlur)="onBlur.emit(formName)"
+                 (onFocus)="focus.emit(formName); showIcon=true"
+                 [onAdding]="onAdding.bind(this)"
+                 [errorMessages]="errorMsg"
+                 (onTextChange)="errorMsg = null"
                  [displayBy]="'name'" [identifyBy]="'email'">
         <tag-input-dropdown [autocompleteObservable]='matchedContacts' [matchingFn]="matchingfn"
                             [displayBy]="'name'" [identifyBy]="'email'">
@@ -21,20 +25,19 @@ import {FormGroup} from '@angular/forms';
         </tag-input-dropdown>
       </tag-input>
     </div>
+    <div *ngIf="errorMsg" class="ui-message ui-messages-error ui-corner-all">
+        {{errorMsg}}
+    </div>
   `,
-  styles: [
-    'tag-input {width: 100%}',
-    '/deep/ .ng2-tag-input {padding-left: 10px !important;}'
-  ]
+  styleUrls: ['./address-field.component.css']
 })
 
 export class AddressFieldComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() label: string;
   @Input() formName: string;
-  @Output() public onFocus = new EventEmitter<string>();
-  @Output() public onBlur = new EventEmitter<string>();
-
+  @Output() public focus = new EventEmitter<string>();
+  errorMsg: string;
   constructor(private contactService: ContactService) {
   }
 
@@ -47,5 +50,21 @@ export class AddressFieldComponent implements OnInit {
 
   matchingfn(value: string, target: User) {
     return target.name.toLowerCase().includes(value.toLowerCase()) || target.email.toLowerCase().includes(value.toLowerCase());
+  }
+
+  onAdding(tag) {
+    const validateAddreess = (text: any) => {
+      // tslint:disable-next-line:max-line-length
+      const pureEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const valid = (text instanceof Object) || pureEmail.test(text);
+      if (!valid) {
+        this.errorMsg = 'The email address is invalid.';
+      }
+      return valid;
+    };
+    return of(tag)
+    .pipe(
+      filter(validateAddreess),
+    );
   }
 }

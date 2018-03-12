@@ -7,25 +7,32 @@
       </div>
     </div>
     <div class="ui-g-12">
-      <address-field [form]="emailForm" label="To" [formName]="'to'" (onFocus)="displayBCC && hideBcc()"></address-field>
+      <address-field [form]="emailForm" label="To" [formName]="'to'" (focus)="displayBCC && hideBcc()"></address-field>
     </div>
 
     <div class="ui-g-12">
       <address-field [form]="emailForm" [label]="displayBCC ? 'Cc': 'Cc/Bcc'" [formName]="'cc'"
-                     (onFocus)="!displayBCC && (displayBCC = true)"></address-field>
+                     (focus)="!displayBCC && (displayBCC = true)"></address-field>
     </div>
     <div *ngIf="displayBCC" class="ui-g-12">
       <address-field [form]="emailForm" label="Bcc" [formName]="'bcc'"></address-field>
     </div>
 
-    <div class="ui-g-12">
-      <div class="ui-inputgroup">
-        <input type="text" pInputText placeholder="Subject" formControlName="subject" (focus)="displayBCC && hideBcc()">
-      </div>
+    <div class="ui-g-12" style="padding-top: 30px">
+      <input type="text" pInputText placeholder="Subject" formControlName="subject" (focus)="displayBCC && hideBcc()">
     </div>
     <div class="ui-g-12">
       <textarea [rows]="10" pInputTextarea autoResize="autoResize" formControlName="text" (focus)="displayBCC && hideBcc()"></textarea>
     </div>
-    <button type="submit" label="Send" icon="ui-icon-send" pButton></button>
+    <div class="ui-g-12">
+      <div class="button-group">
+        <button pButton type="submit" label="Send" icon="ui-icon-send"
+                [disabled]="!emailForm.valid"></button>
+      </div>
+      <div class="button-group">
+        <button pButton type="reset" label="Discard" icon="ui-icon-delete"
+                class="blue-grey-btn"></button>
+      </div>
+    </div>
   </form>
 </p-panel>

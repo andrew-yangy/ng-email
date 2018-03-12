@@ -1,0 +1,6 @@
+tag-input {
+    width: 100%}
+
+::ng-deep .ng2-tag-input {
+    padding-left: 10px !important;
+}
