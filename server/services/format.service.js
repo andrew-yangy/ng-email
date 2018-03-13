@@ -28,8 +28,8 @@ export class SendgridFormat {
     }
 
     setContent(text) {
-        if (typeof text === 'undefined') {
-            text = ' ';
+        if (typeof text === 'undefined' || text === '') {
+            text = 'No Content';
         }
         if (typeof text !== 'string') {
             throw new Error('String expected for `text`');
@@ -51,8 +51,8 @@ export class SendgridFormat {
         ) {
             throw new Error('Provide at least one of to, cc or bcc');
         }
-        if (typeof subject === 'undefined') {
-            return;
+        if (typeof subject === 'undefined' || subject === '') {
+            subject = 'No Subject'
         }
         if (typeof subject !== 'string') {
             throw new Error('String expected for `subject`');

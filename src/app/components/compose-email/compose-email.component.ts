@@ -32,7 +32,7 @@ export class ComposeEmailComponent implements OnInit {
     this.displayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
   }
   onSubmit() {
-    console.log(this.emailForm);
+    console.log(this.emailForm.value);
     this.emailService.sendEmail(this.emailForm.value);
   }
 }

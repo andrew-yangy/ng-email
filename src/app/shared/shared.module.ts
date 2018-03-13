@@ -4,6 +4,7 @@ import {PanelModule} from 'primeng/panel';
 import {DropdownModule, InputTextareaModule, InputTextModule} from 'primeng/primeng';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
+import {MessagesModule} from 'primeng/messages';
 import {TagInputModule} from 'ngx-chips';
 
 const PRIMENGMODULES = [
@@ -12,6 +13,7 @@ const PRIMENGMODULES = [
   InputTextModule,
   InputTextareaModule,
   ButtonModule,
+  MessagesModule
 ];
 const THIRDMODULES = [
   TagInputModule

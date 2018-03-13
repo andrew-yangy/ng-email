@@ -5,10 +5,12 @@ import {SharedModule} from './shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ComposeEmailComponent} from './components/compose-email/compose-email.component';
 import {StartupService} from './@core/startup/startup.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CoreModule} from './@core/core.module';
 import {ContactComponent} from './components/contact/contact.component';
 import {AddressFieldComponent} from './components/address-field/address-field.component';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { NotificationInterceptor } from './shared/notification.interceptor';
 
 export function StartupServiceFactory(startupService: StartupService): Function {
   return () => startupService.getSettings();
@@ -35,7 +37,9 @@ export function StartupServiceFactory(startupService: StartupService): Function 
       useFactory: StartupServiceFactory,
       deps: [StartupService],
       multi: true
-    }
+    },
+    {provide: HTTP_INTERCEPTORS, useClass: NotificationInterceptor, multi: true},
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
