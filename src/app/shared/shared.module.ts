@@ -15,7 +15,7 @@ const PRIMENGMODULES = [
 ];
 const THIRDMODULES = [
   TagInputModule
-]
+];
 
 @NgModule({
   imports: [

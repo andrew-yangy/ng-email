@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SettingsService} from '../../@core/data/settings';
 import {FormBuilder, FormGroup, ValidatorFn, AbstractControl, Validators} from '@angular/forms';
+import { EmailService } from '../../@core/service/email.service';
 
 @Component({
   selector: 'compose-email',
@@ -11,8 +12,10 @@ export class ComposeEmailComponent implements OnInit {
   emailForm: FormGroup;
   displayBCC: boolean;
 
-  constructor(private fb: FormBuilder,
-              private settingsService: SettingsService) {
+  constructor(
+    private fb: FormBuilder,
+    private settingsService: SettingsService,
+    private emailService: EmailService) {
   }
 
   ngOnInit() {
@@ -30,5 +33,6 @@ export class ComposeEmailComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.emailForm);
+    this.emailService.sendEmail(this.emailForm.value);
   }
 }
