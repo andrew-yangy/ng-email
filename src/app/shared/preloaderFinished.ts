@@ -9,8 +9,8 @@ export function removePreloader() {
         preloader.className += ' preloader-hidden-add preloader-hidden-add-active';
     }
     setTimeout(() => {
-      remove();
-      body.style.overflow = '';
+        remove();
+        body.style.overflow = '';
     }, 100);
 }
 

@@ -1,5 +1,5 @@
 import HttpClient from '../services/http.service'
-import{ Format } from '../services/format.service'
+import { Format } from '../services/format.service'
 
 function sendEmail(req, res) {
     console.log(req.body);
@@ -7,12 +7,14 @@ function sendEmail(req, res) {
     const emailBody = Format.create(req.body);
     console.log(emailBody);
     http.send(emailBody)
-    .then(response => {
-        res.status(response.status).json('Email sent successfully');
-    })
-    .catch(err => {
-        res.status(err.response.status).send(err.response.data)
-    })
+        .then(response => {
+            console.log(response)
+            res.status(response.status).json('Email sent successfully');
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(err.response.status).send(err.response.data)
+        })
 }
 
-export default {sendEmail}
+export default { sendEmail }

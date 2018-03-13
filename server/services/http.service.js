@@ -3,7 +3,7 @@ import axios from 'axios';
 class HttpClient {
 
     constructor() {
-        this.apiKey = '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';
+        this.apiKey = '';
     }
     setApiKey(apiKey) {
         this.apiKey = apiKey;
