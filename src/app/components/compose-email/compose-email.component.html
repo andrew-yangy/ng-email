@@ -27,12 +27,13 @@
     <div class="ui-g-12">
       <div class="button-group">
         <button pButton type="submit" label="Send" icon="ui-icon-send"
-                [disabled]="!emailForm.valid"></button>
+                [disabled]="!emailForm.valid || sending"></button>
       </div>
       <div class="button-group">
-        <button pButton type="reset" label="Discard" icon="ui-icon-delete"
-                class="blue-grey-btn"></button>
+        <button pButton type="button" label="Discard" icon="ui-icon-delete"
+                (click)="createForm()" class="blue-grey-btn"></button>
       </div>
     </div>
   </form>
 </p-panel>
+<ngx-loading [show]="sending"></ngx-loading>

@@ -7,9 +7,6 @@ export class EmailService {
         private http: HttpClient
     ) { }
     sendEmail(body: any) {
-        this.http.post('api/email/send', body)
-        .subscribe(res => {
-            console.log(res);
-        });
+        return this.http.post('api/email/send', body);
     }
 }

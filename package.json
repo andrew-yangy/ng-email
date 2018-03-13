@@ -26,6 +26,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "ngx-chips": "^1.6.7",
+    "ngx-loading": "^1.0.14",
     "primeng": "^5.2.3",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"

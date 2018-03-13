@@ -6,6 +6,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {TagInputModule} from 'ngx-chips';
+import {LoadingModule} from 'ngx-loading';
 
 const PRIMENGMODULES = [
   PanelModule,
@@ -16,7 +17,8 @@ const PRIMENGMODULES = [
   MessagesModule
 ];
 const THIRDMODULES = [
-  TagInputModule
+  TagInputModule,
+  LoadingModule
 ];
 
 @NgModule({
