@@ -1,10 +1,10 @@
-import {Injectable, Injector} from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import {
     HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse,
     HttpResponse
 } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {MessageService} from 'primeng/components/common/messageservice';
+import { Observable } from 'rxjs/Observable';
+import { MessageService } from 'primeng/components/common/messageservice';
 import { tap, catchError } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
@@ -16,15 +16,18 @@ export class NotificationInterceptor implements HttpInterceptor {
     private handleNotification(res: HttpErrorResponse | HttpResponse<any>) {
         const messageService = this.injector.get(MessageService);
         messageService.clear();
-        if (res instanceof HttpErrorResponse) {
-            if (res && res.error && Array.isArray(res.error.errors)) {
-                const errorMsg = res.error.errors.map(err => {
-                    return {
-                        severity: 'error',
-                        detail: err.message
-                    };
-                });
+        if (res instanceof HttpErrorResponse && res && res.error) {
+            if (Array.isArray(res.error.errors)) {
+                const errorMsg = res.error.errors.map(err => ({
+                    severity: 'error',
+                    detail: err.message
+                }));
                 messageService.addAll(errorMsg);
+            } else {
+                messageService.add({
+                    severity: 'error',
+                    detail: res.error.message || res.message
+                });
             }
         } else if (res instanceof HttpResponse) {
             messageService.add({

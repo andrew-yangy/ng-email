@@ -12,8 +12,8 @@ import 'rxjs/add/operator/finally';
 
 export class ComposeEmailComponent implements OnInit {
     emailForm: FormGroup;
-    displayBCC: boolean;
-    sending: boolean;
+    ifDisplayBCC: boolean;
+    ifSending: boolean;
     constructor(
         private fb: FormBuilder,
         private settingsService: SettingsService,
@@ -36,14 +36,14 @@ export class ComposeEmailComponent implements OnInit {
         this.messageService.clear();
     }
     hideBcc() {
-        this.displayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
+        this.ifDisplayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
     }
     onSubmit() {
         console.log(this.emailForm.value);
         this.messageService.clear();
-        this.sending = true;
+        this.ifSending = true;
         this.emailService.sendEmail(this.emailForm.value)
-            .finally(() => this.sending = false)
+            .finally(() => this.ifSending = false)
             .subscribe(() => { });
     }
 }
