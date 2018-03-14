@@ -41,7 +41,7 @@ export class ComposeEmailComponent implements OnInit {
     hideBcc() {
         this.isDisplayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
     }
-    onSubmit() {
+    submitForm() {
         console.log(this.emailForm.value);
         this.messageService.clear();
         if (!this.emailForm.value.subject || !this.emailForm.value.text) {
@@ -49,6 +49,7 @@ export class ComposeEmailComponent implements OnInit {
                 header: 'Confirmation',
                 message: 'Send this message without a subject or text in the body?',
                 accept: this.send
+
             });
         } else {
             this.send();
