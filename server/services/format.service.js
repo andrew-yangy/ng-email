@@ -1,18 +1,3 @@
-export class Format {
-    constructor() {
-        this.agent = 'sendgrid'
-    }
-    setAgent(agent) {
-        this.agent = agent;
-    }
-    static create(data) {
-        // if (this.agent === 'sendgrid') {
-        //     return new SendgridFormat(data);
-        // }
-        return new SendgridFormat(data);
-    }
-}
-
 export class SendgridFormat {
     constructor(data) {
         this.personalizations = [];

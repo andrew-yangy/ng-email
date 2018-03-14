@@ -10,9 +10,15 @@ const envVarsSchema = Joi.object({
         .default(4000),
     EMAIL_AGENT: Joi.string()
         .allow(['mailgun', 'sendgrid'])
-        .default('mailgun'),
-    SENDGRID_API_KEY: Joi.string()
+        .default('sendgrid'),
+    SENDGRID_URL: Joi.string()
         .default(''),
+	SENDGRID_API_KEY: Joi.string()
+		.default(''),
+	MAILGUN_URL: Joi.string()
+		.default(''),
+	MAILGUN_API_KEY: Joi.string()
+		.default(''),
 }).unknown()
     .required();
 
@@ -29,7 +35,10 @@ const config = {
     env: envVars.NODE_ENV,
     port: envVars.SERVER_PORT,
     agent: envVars.EMAIL_AGENT,
-    sendgrid_key: envVars.SENDGRID_API_KEY
-};
+	sendgrid_url: envVars.SENDGRID_URL,
+    sendgrid_key: envVars.SENDGRID_API_KEY,
+	mailgun_url: envVars.MAILGUN_URL,
+	mailgun_key: envVars.MAILGUN_API_KEY
+ };
 
 export default config;

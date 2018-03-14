@@ -11,7 +11,7 @@
         </div>
 
         <div class="ui-g-12">
-            <address-field [form]="emailForm" [label]="ifDisplayBCC ? 'Cc': 'Cc/Bcc'" [formName]="'cc'" (focus)="!ifDisplayBCC && (ififDisplayBCC = true)"></address-field>
+            <address-field [form]="emailForm" [label]="ifDisplayBCC ? 'Cc': 'Cc/Bcc'" [formName]="'cc'" (focus)="!ifDisplayBCC && (ifDisplayBCC = true)"></address-field>
         </div>
         <div *ngIf="ifDisplayBCC" class="ui-g-12">
             <address-field [form]="emailForm" label="Bcc" [formName]="'bcc'"></address-field>

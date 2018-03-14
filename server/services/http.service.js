@@ -1,34 +1,33 @@
 import axios from 'axios';
 import config from '../config/config';
 import { SendgridFormat, MailgunFormat } from './format.service';
-var Mailgun = require('mailgun-js');
+import querystring from 'querystring';
 
-class HttpClient {
-    static createClient(agent) {
-        if (agent === 'mailgun') {
-            return new MailGun();
-        } else if (agent === 'sendgrid') {
-            return new SendGrid();
-        }
-    }
+export function createClient(agent) {
+	if (agent === 'mailgun') {
+		return new MailGun();
+	} else if (agent === 'sendgrid') {
+		return new SendGrid();
+	}
+}
+export function switchClient(client) {
+	if (client instanceof MailGun) {
+		return new SendGrid();
+	} else if (client instanceof SendGrid) {
+		return new MailGun();
+	}
 }
 class MailGun {
     constructor() {
-        this.url = 'https://api.mailgun.net/v3/app.ozgoal.com/messages';
-        this.apiKey = 'key-cd9044460f0ce446d73b74f662fb0273'
+        this.url = config.mailgun_url;
+        this.apiKey = config.mailgun_key;
     }
 
     send(data) {
-        // const body = new MailgunFormat(data);
-        // console.log(body);
-        const body = {
-            from: 'Excited User <me@samples.mailgun.org>',
-            to: 'ddvkid@gmail.com',
-            subject: 'Hello',
-            text: 'Testing some Mailgun awesomness!'
-        };
-        return axios.post(this.url, JSON.stringify(body), {
+        const body = new MailgunFormat(data);
+        return axios.post(this.url, querystring.stringify(body), {
             headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Basic ' + Buffer.from('api:' + this.apiKey).toString('base64')
             }
         })
@@ -36,7 +35,7 @@ class MailGun {
 }
 class SendGrid {
     constructor() {
-        this.url = 'https://api.sendgrid.com/v3/mail/send';
+        this.url = config.sendgrid_url;
         this.apiKey = config.sendgrid_key;
     }
 
@@ -49,4 +48,3 @@ class SendGrid {
         })
     }
 }
-export default HttpClient;

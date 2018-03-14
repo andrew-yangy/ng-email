@@ -61,6 +61,7 @@
     "mailgun-js": "^0.16.0",
     "nodemon": "^1.17.1",
     "protractor": "~5.1.2",
+    "querystring": "^0.2.0",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"
