@@ -10,6 +10,7 @@ import { CoreModule } from './@core/core.module';
 import { AddressFieldComponent } from './components/address-field/address-field.component';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { NotificationInterceptor } from './shared/notification.interceptor';
+import { ConfirmationService } from 'primeng/primeng';
 
 export function StartupServiceFactory(startupService: StartupService): Function {
     return () => startupService.getSettings();
@@ -37,7 +38,8 @@ export function StartupServiceFactory(startupService: StartupService): Function 
             multi: true
         },
         { provide: HTTP_INTERCEPTORS, useClass: NotificationInterceptor, multi: true },
-        MessageService
+        MessageService,
+        ConfirmationService
     ],
     bootstrap: [AppComponent]
 })

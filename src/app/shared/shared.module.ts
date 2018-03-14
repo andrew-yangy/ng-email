@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PanelModule } from 'primeng/panel';
-import { DropdownModule, InputTextareaModule, InputTextModule } from 'primeng/primeng';
+import { DropdownModule, InputTextareaModule, InputTextModule, ConfirmDialogModule } from 'primeng/primeng';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
@@ -14,7 +14,8 @@ const PRIMENGMODULES = [
     InputTextModule,
     InputTextareaModule,
     ButtonModule,
-    MessagesModule
+    MessagesModule,
+    ConfirmDialogModule
 ];
 const THIRDMODULES = [
     TagInputModule,

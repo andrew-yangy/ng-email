@@ -7,25 +7,25 @@
             </div>
         </div>
         <div class="ui-g-12">
-            <address-field [form]="emailForm" label="To" [formName]="'to'" (focus)="ifDisplayBCC && hideBcc()"></address-field>
+            <address-field [form]="emailForm" label="To" [formName]="'to'" (focus)="isDisplayBCC && hideBcc()"></address-field>
         </div>
 
         <div class="ui-g-12">
-            <address-field [form]="emailForm" [label]="ifDisplayBCC ? 'Cc': 'Cc/Bcc'" [formName]="'cc'" (focus)="!ifDisplayBCC && (ifDisplayBCC = true)"></address-field>
+            <address-field [form]="emailForm" [label]="isDisplayBCC ? 'Cc': 'Cc/Bcc'" [formName]="'cc'" (focus)="!isDisplayBCC && (isDisplayBCC = true)"></address-field>
         </div>
-        <div *ngIf="ifDisplayBCC" class="ui-g-12">
+        <div *ngIf="isDisplayBCC" class="ui-g-12">
             <address-field [form]="emailForm" label="Bcc" [formName]="'bcc'"></address-field>
         </div>
 
         <div class="ui-g-12" style="padding-top: 30px">
-            <input type="text" pInputText placeholder="Subject" formControlName="subject" (focus)="ifDisplayBCC && hideBcc()">
+            <input type="text" pInputText placeholder="Subject" formControlName="subject" (focus)="isDisplayBCC && hideBcc()">
         </div>
         <div class="ui-g-12">
-            <textarea [rows]="10" pInputTextarea autoResize="autoResize" formControlName="text" (focus)="ifDisplayBCC && hideBcc()"></textarea>
+            <textarea [rows]="10" pInputTextarea autoResize="autoResize" formControlName="text" (focus)="isDisplayBCC && hideBcc()"></textarea>
         </div>
         <div class="ui-g-12">
             <div class="button-group">
-                <button pButton type="submit" label="Send" icon="ui-icon-send" [disabled]="!emailForm.valid || ifSending"></button>
+                <button pButton type="submit" label="Send" icon="ui-icon-send" [disabled]="!emailForm.valid || isSending"></button>
             </div>
             <div class="button-group">
                 <button pButton type="button" label="Discard" icon="ui-icon-delete" (click)="createForm()" class="blue-grey-btn"></button>
@@ -33,4 +33,5 @@
         </div>
     </form>
 </p-panel>
-<ngx-loading [show]="ifSending"></ngx-loading>
+<ngx-loading [show]="isSending"></ngx-loading>
+<p-confirmDialog></p-confirmDialog>

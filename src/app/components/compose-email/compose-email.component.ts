@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ValidatorFn, AbstractControl, Validators } from
 import { EmailService } from '../../@core/service/email.service';
 import { MessageService } from 'primeng/components/common/messageservice';
 import 'rxjs/add/operator/finally';
+import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 
 @Component({
     selector: 'compose-email',
@@ -12,13 +13,15 @@ import 'rxjs/add/operator/finally';
 
 export class ComposeEmailComponent implements OnInit {
     emailForm: FormGroup;
-    ifDisplayBCC: boolean;
-    ifSending: boolean;
+    isDisplayBCC: boolean;
+    isSending: boolean;
     constructor(
         private fb: FormBuilder,
         private settingsService: SettingsService,
         private emailService: EmailService,
-        private messageService: MessageService) {
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService
+    ) {
         this.createForm();
     }
 
@@ -36,14 +39,26 @@ export class ComposeEmailComponent implements OnInit {
         this.messageService.clear();
     }
     hideBcc() {
-        this.ifDisplayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
+        this.isDisplayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
     }
     onSubmit() {
         console.log(this.emailForm.value);
         this.messageService.clear();
-        this.ifSending = true;
+        if (!this.emailForm.value.subject || !this.emailForm.value.text) {
+            this.confirmationService.confirm({
+                header: 'Confirmation',
+                message: 'Send this message without a subject or text in the body?',
+                accept: this.send
+            });
+        } else {
+            this.send();
+        }
+    }
+    // Arrow function in order to bind 'this'
+    send = () => {
+        this.isSending = true;
         this.emailService.sendEmail(this.emailForm.value)
-            .finally(() => this.ifSending = false)
+            .finally(() => this.isSending = false)
             .subscribe(() => { });
     }
 }
