@@ -13,12 +13,12 @@ const envVarsSchema = Joi.object({
         .default('sendgrid'),
     SENDGRID_URL: Joi.string()
         .default(''),
-	SENDGRID_API_KEY: Joi.string()
-		.default(''),
-	MAILGUN_URL: Joi.string()
-		.default(''),
-	MAILGUN_API_KEY: Joi.string()
-		.default(''),
+    SENDGRID_API_KEY: Joi.string()
+        .default(''),
+    MAILGUN_URL: Joi.string()
+        .default(''),
+    MAILGUN_API_KEY: Joi.string()
+        .default(''),
 }).unknown()
     .required();
 
@@ -27,18 +27,21 @@ if (error) {
     throw new Error(`Config validation error: ${error.message}`);
 }
 
-if (!envVars.SENDGRID_API_KEY) {
-    throw new Error('No sendgrid api key found');
+if (!envVars.SENDGRID_URL ||
+    !envVars.SENDGRID_API_KEY ||
+    !envVars.MAILGUN_URL ||
+    !envVars.MAILGUN_API_KEY) {
+    throw new Error('The config for sendgrid or mailgun is missing, please check your .env file.');
 }
 
 const config = {
     env: envVars.NODE_ENV,
     port: envVars.SERVER_PORT,
     agent: envVars.EMAIL_AGENT,
-	sendgrid_url: envVars.SENDGRID_URL,
+    sendgrid_url: envVars.SENDGRID_URL,
     sendgrid_key: envVars.SENDGRID_API_KEY,
-	mailgun_url: envVars.MAILGUN_URL,
-	mailgun_key: envVars.MAILGUN_API_KEY
- };
+    mailgun_url: envVars.MAILGUN_URL,
+    mailgun_key: envVars.MAILGUN_API_KEY
+};
 
 export default config;
