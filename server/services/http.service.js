@@ -41,7 +41,6 @@ class SendGrid {
 
     send(data) {
         const body = new SendgridFormat(data);
-        console.log(config);
         return axios.post(this.url, body, {
             headers: {
                 Authorization: `Bearer ${this.apiKey}`
