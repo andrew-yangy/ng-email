@@ -14,6 +14,7 @@ function request(http, req, res, retry = true) {
             res.status(response.status).json('Email sent successfully');
         })
         .catch(err => {
+            console.log(err);
             if (retry) {
                 console.log('Provider failed, switch to another one.');
                 const newClient = switchClient(http);

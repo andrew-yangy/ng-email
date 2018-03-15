@@ -42,7 +42,6 @@ export class ComposeEmailComponent implements OnInit {
         this.isDisplayBCC = this.emailForm.get('cc').value.length || this.emailForm.get('bcc').value.length;
     }
     submitForm() {
-        console.log(this.emailForm.value);
         this.messageService.clear();
         if (!this.emailForm.value.subject || !this.emailForm.value.text) {
             this.confirmationService.confirm({

@@ -1,7 +1,7 @@
 <div class="ui-inputgroup" [formGroup]="form">
     <span class="ui-inputgroup-addon">{{label}}:</span>
-    <tag-input [formControlName]="formName" secondaryPlaceholder='' placeholder (onFocus)="focus.emit(formName); showIcon=true"
-        [onAdding]="onAdding.bind(this)" [errorMessages]="errorMsg" (onTextChange)="errorMsg = null" [displayBy]="'name'" [identifyBy]="'email'">
+    <tag-input [formControlName]="formName" secondaryPlaceholder='' placeholder (onFocus)="focus.emit(formName)" [onAdding]="onAdding.bind(this)"
+        [errorMessages]="errorMsg" (onTextChange)="errorMsg = null" [displayBy]="'name'" [identifyBy]="'email'">
         <tag-input-dropdown [autocompleteObservable]='matchedContacts' [matchingFn]="matchingfn" [displayBy]="'name'" [identifyBy]="'email'">
             <ng-template let-item="item" let-index="index">
                 <strong>{{ item.name }}</strong> {{ item.email }}

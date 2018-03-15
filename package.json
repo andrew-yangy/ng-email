@@ -5,12 +5,15 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve --proxy-config proxy.conf.json",
-        "build": "ng build --prod && babel server -d dist",
+        "build": "npm run build:ng && npm run build:server",
+        "build:ng": "ng build --prod",
+        "build:server": "babel server -d dist",
+        "build:ghpages": "ng build --prod --output-path docs --base-href ng-email",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "server:dev": "nodemon server-start.js --exec babel-node",
-        "serve": "node dist/index.js"
+        "server": "cross-env NODE_ENV=production node dist/index.js"
     },
     "private": true,
     "dependencies": {
@@ -40,6 +43,7 @@
         "@types/jasmine": "~2.8.3",
         "@types/jasminewd2": "~2.0.2",
         "@types/node": "~6.0.60",
+        "app-root-path": "^2.0.1",
         "axios": "^0.18.0",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
