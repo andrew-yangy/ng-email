@@ -7,7 +7,7 @@ This is an Email Client based on Angular5 and nodejs.
 
 #### Configuration
 
-To start this application, you need a ``.env`` which includes the email providers configurations.
+To start this application, you need a ``.env`` which includes the email provider configurations.
 
 Create a ``.env`` file in the root directory of the project. Add Sendgrid and Mailgun keys on new lines in the form of NAME=VALUE. For example:
 
@@ -30,7 +30,7 @@ npm install
 
 #### Running on dev
 
-Run `npm run start` for a dev server for Angular, and run `npm run server:dev` for Node Server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run start` to start a dev server for Angular, and run `npm run server:dev` for Node Server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 #### Build
 
