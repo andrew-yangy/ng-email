@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../@core/model';
 import { ContactService } from '../../@core/service/contact.service';
 import { FormGroup, FormControl } from '@angular/forms';
-import { map, filter, tap } from 'rxjs/operators';
+import { map, filter, tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { EmailService } from '../../@core/service/email.service';
 
@@ -45,7 +45,7 @@ export class AddressFieldComponent implements OnInit {
         };
         return of(tag)
             .pipe(
-                filter(validateAddreess),
-        );
+                filter(validateAddreess)
+            );
     }
 }
